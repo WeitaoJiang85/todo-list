@@ -1,0 +1,24 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: scroll;
+  background-image: linear-gradient(to bottom right, #2c30f3, #7e1ded);
+  background-repeat: repeat;
+  color: white;
+}
+.head {
+  font-size: 60px;
+  text-shadow: 4px 4px 4px rgba(13, 13, 13, 0.6);
+}
+
+.container,
+.itemList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
