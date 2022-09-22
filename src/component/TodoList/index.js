@@ -43,41 +43,55 @@ const startingTodo = [
 ];
 
 export default class ToDoList extends Component {
-  state = { toDoList: startingTodo, keyWord: "" };
+  state = { toDoList: startingTodo, keyWord: "", newList: [] };
 
   addNewTodo = (newTodo) => {
-    console.log("Received todo:", newTodo);
-
-    this.setState({ toDoList: [newTodo, ...this.state.toDoList] });
+    this.setState({
+      toDoList: [newTodo, ...this.state.toDoList],
+      newList: [newTodo, ...this.state.toDoList],
+    });
   };
 
   handleClear = () => {
-    this.setState({ toDoList: [] });
+    this.setState({
+      toDoList: [],
+      newList: [],
+    });
   };
 
   handleRemoveElement = (position) => {
     if (position === "first") {
       this.state.toDoList.shift();
-      this.setState({ toDoList: this.state.toDoList });
+      this.setState({
+        toDoList: this.state.toDoList,
+        newList: this.state.toDoList,
+      });
     }
 
     if (position === "last") {
       this.state.toDoList.pop();
-      this.setState({ toDoList: this.state.toDoList });
+      this.setState({
+        toDoList: this.state.toDoList,
+        newList: this.state.toDoList,
+      });
     }
   };
 
   deleteItem = (id) => {
     const newArray = this.state.toDoList.filter((todo) => todo.id !== id);
-    this.setState({ toDoList: newArray });
+    this.setState({ toDoList: newArray, newList: newArray });
   };
 
   handleCompletedChange = (id) => {
-    this.state.toDoList.filter((todo) => {
-      if (todo.id === id) {
-        return { ...todo, completed: true };
-      }
-      return { ...this.state.toDoList, todo };
+    const completedList = this.state.toDoList.filter((todo) => todo.id === id);
+    completedList[0].completed === false
+      ? (completedList[0].completed = true)
+      : (completedList[0].completed = false);
+    console.log(completedList[0]);
+    console.log(this.state.toDoList);
+    this.setState({
+      toDoList: this.state.toDoList,
+      newList: this.state.toDoList,
     });
   };
 
@@ -106,6 +120,10 @@ export default class ToDoList extends Component {
     });
   };
 
+  showAll = () => {
+    this.setState({ toDoList: this.state.newList });
+  };
+
   handleInput = (e) => {
     this.setState({ keyWord: e.target.value });
   };
@@ -122,6 +140,7 @@ export default class ToDoList extends Component {
             handleRemoveElement={this.handleRemoveElement}
             filterComplete={this.filterComplete}
             filterUrgent={this.filterUrgent}
+            showAll={this.showAll}
           />
         </div>
         <div>
@@ -148,6 +167,9 @@ export default class ToDoList extends Component {
                   urgent={todos.urgent}
                   completed={todos.completed}
                   deleteItem={() => this.deleteItem(todos.id)}
+                  handleCompletedChange={() =>
+                    this.handleCompletedChange(todos.id)
+                  }
                 />
               );
             })}

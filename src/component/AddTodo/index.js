@@ -76,7 +76,9 @@ export default class AddTodo extends Component {
         >
           Delete Last Todo
         </button>
-
+        <button style={{ marginRight: 20 }} onClick={this.props.showAll}>
+          Show All
+        </button>
         <button style={{ marginRight: 20 }} onClick={this.props.filterComplete}>
           Only show completed
         </button>

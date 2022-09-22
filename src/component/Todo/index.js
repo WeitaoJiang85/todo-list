@@ -1,6 +1,6 @@
-import { Component } from 'react'
+import { Component } from "react";
 
-import './index.css'
+import "./index.css";
 
 export default class Todo extends Component {
   render() {
@@ -8,20 +8,25 @@ export default class Todo extends Component {
       <div className="Todo">
         <p
           style={
-            this.props.completed ? { textDecoration: 'line-through' } : null
+            this.props.completed === true
+              ? { textDecoration: "line-through" }
+              : null
           }
         >
           {this.props.item}
           <span
-            style={this.props.urgent === !true ? { display: 'none' } : null}
+            style={this.props.urgent === !true ? { display: "none" } : null}
           >
             ⏰
           </span>
         </p>
-
-        <button onClick={this.props.deleteItem}>Delete</button>
-        <button onClick={this.props.handleCompletedChange}>Completed?</button>
+        <div>
+          <button onClick={this.props.deleteItem}>Delete</button>
+          <button onClick={this.props.handleCompletedChange}>
+            {this.props.completed ? "Uncomplete" : "Completed?"}
+          </button>
+        </div>
       </div>
-    )
+    );
   }
 }
