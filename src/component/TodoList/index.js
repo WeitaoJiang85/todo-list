@@ -93,6 +93,7 @@ export default class ToDoList extends Component {
       toDoList: this.state.toDoList,
       newList: this.state.toDoList,
     });
+    console.log("New List:", this.state.newList);
   };
 
   filterComplete = () => {
